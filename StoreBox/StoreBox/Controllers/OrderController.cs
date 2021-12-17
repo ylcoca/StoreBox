@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StoreBox.Models;
+using StoreBox.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace StoreBox.Controllers
 {
@@ -12,36 +12,42 @@ namespace StoreBox.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        // GET: api/<OrderController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private IOrderService _service;
+        public OrderController(IOrderService service)
         {
-            return new string[] { "value1", "value2" };
+            _service = service;
         }
-
         // GET api/<OrderController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<OrderDTO> Get(int id)
         {
-            return "value";
+            try
+            {
+                var result = _service.GetOrder(id);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(500);
+            }
+
         }
 
         // POST api/<OrderController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public int AddOrder([FromBody] Order order)
         {
-        }
+            //should responds with the minimum bin width.
+            
+            _service.SaveOrder(new Order());
+            return 0;
 
-        // PUT api/<OrderController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/<OrderController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
