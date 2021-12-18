@@ -19,7 +19,7 @@ namespace StoreBox.Controllers
         }
         // GET api/<OrderController>/5
         [HttpGet("{id}")]
-        public ActionResult<OrderDTO> Get(int id)
+        public IActionResult Get(int id)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace StoreBox.Controllers
                 {
                     return NotFound();
                 }
-                return result;
+                return Ok(result);
             }
             catch (Exception e)
             {

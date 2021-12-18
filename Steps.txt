@@ -1,0 +1,2 @@
+DataBase first
+	1. Scaffold-DbContext "Data Source=LAP0315\SQLEXPRESS;Initial Catalog=StoreBoxDB;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -o Models -UseDatabaseNames

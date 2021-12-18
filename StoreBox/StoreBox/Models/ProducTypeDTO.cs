@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace StoreBox.Models
 {
-    public class OrderDTO
+    public class ProducTypeDTO
     {
-        public IEnumerable<ProducTypeDTO> Products { get; set; }
-        public float TotalSize { get; set; }
+        public string ProductTypeName { get; set; }
+        public float Width { get; set; }
+
     }
 }

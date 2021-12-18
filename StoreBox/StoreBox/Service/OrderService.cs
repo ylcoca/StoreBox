@@ -1,9 +1,6 @@
 ﻿using StoreBox.Models;
 using StoreBox.Repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StoreBox.Service
 {
@@ -17,8 +14,19 @@ namespace StoreBox.Service
         public OrderDTO GetOrder(int Id)
         {
             var products  = _repository.GetOrderProductTypes(Id);
-            var dto = new OrderDTO { 
-                TotalSize = TotalSize(products)
+            var productList = new List<ProducTypeDTO>();
+
+            foreach (var product in products)
+            {
+                productList.Add(new ProducTypeDTO {
+                    ProductTypeName = product.ProductTypeName,
+                    Width = product.Width
+                });
+            }
+
+            var dto = new OrderDTO {
+                TotalSize = TotalSize(products),
+                Products = productList
             };
 
             return dto;
