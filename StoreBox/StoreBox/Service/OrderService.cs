@@ -32,9 +32,11 @@ namespace StoreBox.Service
             return dto;
         }
 
-        public void SaveOrder(Order order)
+        public float SaveOrder(Order order)
         {
-            _repository.SaveOrder(order);
+            var Id = _repository.SaveOrder(order);
+
+            return GetOrder(Id).TotalSize;
         }
 
         private float TotalSize(IEnumerable<ProducType> products)

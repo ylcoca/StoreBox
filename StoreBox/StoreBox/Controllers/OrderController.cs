@@ -30,9 +30,8 @@ namespace StoreBox.Controllers
                 }
                 return Ok(result);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-
                 return StatusCode(500);
             }
 
@@ -40,14 +39,19 @@ namespace StoreBox.Controllers
 
         // POST api/<OrderController>
         [HttpPost]
-        public int AddOrder([FromBody] Order order)
+        public IActionResult AddOrder([FromBody] Order order)
         {
-            //should responds with the minimum bin width.
+            try
+            {
+                var minWidth = _service.SaveOrder(order);
+                return Ok(minWidth);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(500);
+            }
             
-            _service.SaveOrder(new Order());
-            return 0;
-
-
         }
     }
 }

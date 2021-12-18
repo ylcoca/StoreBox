@@ -4,7 +4,7 @@ namespace StoreBox.Service
 {
     public interface IOrderService
     {
-        public void SaveOrder(Order order);
+        public float SaveOrder(Order order);
         public OrderDTO GetOrder(int Id);
     }
 }

@@ -23,22 +23,33 @@ namespace StoreBox.Repository
             return cartItems;
         }
 
-        public void SaveOrder(Order order)
+        public int SaveOrder(Order order)
         {
+            int id = 0;
 
-            var producType = context.ProducTypes.First(i => i.ProductTypeID == 1);
-           
-
-            var productOrders = new ProductOrder
+            foreach (var item in order.ProductOrders)
             {
-                ProductType = producType,
-                Order = order
-            };
+                var producType = context.ProducTypes.First(i => i.ProductTypeID == item.ProductType.ProductTypeID);
+                var productOrders = new ProductOrder
+                {
+                    ProductType = producType                    
+                };
 
-            context.Add(productOrders);
-            context.SaveChanges();
+                if (id == 0)
+                {
+                    productOrders.Order = new Order();
+                }
+                else
+                {
+                    productOrders.OrderId = id;
+                }
 
+                context.Add(productOrders);
+                context.SaveChanges();
+                id = productOrders.OrderId;
+            }
 
+            return id;
 
         }
     }
