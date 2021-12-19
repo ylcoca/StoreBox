@@ -62,15 +62,18 @@ namespace StoreBox.Service
                 
             }
 
-
-            if (cups%4 == 0)
+            if (cups > 0 && cupsValue > 0)
             {
-                totalSize +=  cups / _configuration.MaxMugs * cupsValue;
+                if (cups % 4 == 0)
+                {
+                    totalSize += cups / _configuration.MaxMugs * cupsValue;
+                }
+                else
+                {
+                    totalSize += cups / _configuration.MaxMugs * cupsValue + cupsValue;
+                }
             }
-            else
-            {
-                totalSize += cups / _configuration.MaxMugs * cupsValue + cupsValue;
-            }
+           
 
             return totalSize;
         }
