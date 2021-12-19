@@ -13,6 +13,28 @@ API endpoints
 
 	Get order /api/Order/{id} (GET)
 	Add order /api/Order (POST)
+	
+Sample POST JSON
+
+	{
+		"productOrders": [{
+			"productType": {
+				"Symbol": "0"
+			}
+		}, {
+			"productType": {
+				"Symbol": "|"
+			}
+		}, {
+			"productType": {
+				"Symbol": "|"
+			}
+		}, {
+			"productType": {
+				"Symbol": "."
+			}
+		}]
+	}
 
 Testing data used
 
@@ -22,3 +44,4 @@ Testing data used
 	id 14 -> [0||::] = 133
 	id 15 -> [0||::::] = 227
 	id 16 -> [0||::::.] = 321
+	
