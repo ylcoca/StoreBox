@@ -1,18 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
 namespace StoreBox.Models
 {
-   /* public interface IStoreBoxDBContext : IDisposable
-    {
-        public DbSet<Order> Orders();
-        public DbSet<ProducType> ProducTypes();
-        public DbSet<ProductOrder> ProductOrders();
-    }*/
-
     public partial class StoreBoxDBContext : DbContext
     {
         public StoreBoxDBContext()
@@ -25,8 +18,8 @@ namespace StoreBox.Models
         }
 
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<ProducType> ProducTypes { get; set; }
         public virtual DbSet<ProductOrder> ProductOrders { get; set; }
+        public virtual DbSet<ProductType> ProductTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,28 +30,30 @@ namespace StoreBox.Models
                 entity.ToTable("Order");
             });
 
-            modelBuilder.Entity<ProducType>(entity =>
-            {
-                entity.HasKey(e => e.ProductTypeID);
-
-                entity.ToTable("ProducType");
-            });
-
             modelBuilder.Entity<ProductOrder>(entity =>
             {
-                entity.HasKey(e => new { e.OrderId, e.ProductTypeID });
-
                 entity.ToTable("ProductOrder");
-
-                entity.HasIndex(e => e.ProductTypeID, "IX_ProductOrder_ProductTypeID");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.ProductOrders)
-                    .HasForeignKey(d => d.OrderId);
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_OrderId");
 
                 entity.HasOne(d => d.ProductType)
                     .WithMany(p => p.ProductOrders)
-                    .HasForeignKey(d => d.ProductTypeID);
+                    .HasForeignKey(d => d.ProductTypeID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductType_ProductTypeID");
+            });
+
+            modelBuilder.Entity<ProductType>(entity =>
+            {
+                entity.ToTable("ProductType");
+
+                entity.Property(e => e.Symbol)
+                    .HasMaxLength(1)
+                    .IsFixedLength(true);
             });
 
             OnModelCreatingPartial(modelBuilder);

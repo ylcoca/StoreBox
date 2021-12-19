@@ -36,6 +36,8 @@ namespace StoreBox
 
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            //  services.Configure<Configuration>(Configuration.GetSection("Configuration"));
+            services.AddSingleton(Configuration.GetSection("Configuration").Get<Configuration>());
 
         }
 

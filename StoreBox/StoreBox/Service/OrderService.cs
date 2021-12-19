@@ -1,4 +1,5 @@
-﻿using StoreBox.Models;
+﻿using Microsoft.Extensions.Options;
+using StoreBox.Models;
 using StoreBox.Repository;
 using System.Collections.Generic;
 
@@ -7,18 +8,20 @@ namespace StoreBox.Service
     public class OrderService : IOrderService
     {
         IOrderRepository _repository;
-        public OrderService(IOrderRepository repository)
+        private readonly Configuration _configuration;
+        public OrderService(IOrderRepository repository, Configuration myConfiguration)
         {
             _repository = repository;
+            _configuration = myConfiguration;
         }
         public OrderDTO GetOrder(int Id)
         {
             var products  = _repository.GetOrderProductTypes(Id);
-            var productList = new List<ProducTypeDTO>();
+            var productList = new List<ProductTypeDTO>();
 
             foreach (var product in products)
             {
-                productList.Add(new ProducTypeDTO {
+                productList.Add(new ProductTypeDTO {
                     ProductTypeName = product.ProductTypeName,
                     Width = product.Width
                 });
@@ -39,15 +42,36 @@ namespace StoreBox.Service
             return GetOrder(Id).TotalSize;
         }
 
-        private float TotalSize(IEnumerable<ProducType> products)
+        private float TotalSize(IEnumerable<ProductType> products)
         {
-            //calculate for cups ...
-
+            int cups = 0;
+            float cupsValue = 0;
             float totalSize = 0;
+
             foreach (var product in products)
             {
-                totalSize += product.Width;
+                if(product.Symbol == ".")
+                {
+                    cups++;
+                    cupsValue = product.Width;
+                }
+                else
+                {
+                    totalSize += product.Width;
+                }
+                
             }
+
+
+            if (cups%4 == 0)
+            {
+                totalSize +=  cups / _configuration.MaxMugs * cupsValue;
+            }
+            else
+            {
+                totalSize += cups / _configuration.MaxMugs * cupsValue + cupsValue;
+            }
+
             return totalSize;
         }
     }

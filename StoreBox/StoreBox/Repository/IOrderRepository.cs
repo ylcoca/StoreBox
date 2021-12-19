@@ -9,6 +9,6 @@ namespace StoreBox.Repository
     public interface IOrderRepository
     {
         public int SaveOrder(Order order);
-        public IEnumerable<ProducType> GetOrderProductTypes(int Id);
+        public IEnumerable<ProductType> GetOrderProductTypes(int Id);
     }
 }

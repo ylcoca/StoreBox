@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace StoreBox.Models
 {
-    public partial class ProducType
+    public partial class ProductType
     {
-        public ProducType()
+        public ProductType()
         {
             ProductOrders = new HashSet<ProductOrder>();
         }
@@ -15,6 +15,7 @@ namespace StoreBox.Models
         public int ProductTypeID { get; set; }
         public string ProductTypeName { get; set; }
         public float Width { get; set; }
+        public string Symbol { get; set; }
 
         public virtual ICollection<ProductOrder> ProductOrders { get; set; }
     }

@@ -13,7 +13,7 @@ namespace StoreBox.Repository
             context = dbcontex;
         }
 
-        public IEnumerable<ProducType> GetOrderProductTypes(int Id)
+        public IEnumerable<ProductType> GetOrderProductTypes(int Id)
         {
             var cartIncludingItems = context.Orders.Include(cart => cart.ProductOrders).ThenInclude(row => row.ProductType)
                 .First(cart => cart.OrderId == Id);
@@ -29,7 +29,8 @@ namespace StoreBox.Repository
 
             foreach (var item in order.ProductOrders)
             {
-                var producType = context.ProducTypes.First(i => i.ProductTypeID == item.ProductType.ProductTypeID);
+                //var producType = context.ProductTypes.First(i => i.ProductTypeID == item.ProductType.ProductTypeID);
+                var producType = context.ProductTypes.First(i => i.Symbol == item.ProductType.Symbol);
                 var productOrders = new ProductOrder
                 {
                     ProductType = producType                    

@@ -7,7 +7,7 @@ namespace StoreBox.Models
 {
     public class OrderDTO
     {
-        public IEnumerable<ProducTypeDTO> Products { get; set; }
+        public IEnumerable<ProductTypeDTO> Products { get; set; }
         public float TotalSize { get; set; }
     }
 }

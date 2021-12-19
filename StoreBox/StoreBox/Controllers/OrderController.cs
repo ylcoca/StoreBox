@@ -2,9 +2,6 @@
 using StoreBox.Models;
 using StoreBox.Service;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StoreBox.Controllers
 {
@@ -46,7 +43,7 @@ namespace StoreBox.Controllers
                 var minWidth = _service.SaveOrder(order);
                 return Ok(minWidth);
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
                 return StatusCode(500);
