@@ -10,6 +10,7 @@ Insertion and retreival of orders and minimun width based on
 From 1 to 4 mugs stacked count as single space of 94 mm
 
 API endpoints
+
 	Get order /api/Order/{id} (GET)
 	Add order /api/Order (POST)
 
