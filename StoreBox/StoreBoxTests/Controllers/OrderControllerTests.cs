@@ -1,14 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using StoreBox.Controllers;
 using StoreBox.Models;
 using StoreBox.Service;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StoreBox.Controllers.Tests
 {
@@ -24,7 +20,7 @@ namespace StoreBox.Controllers.Tests
         public void Initialize()
         {
             //Arrange
-            _serviceMock = new Mock<IOrderService>();       
+            _serviceMock = new Mock<IOrderService>();
 
             _controller = new OrderController(_serviceMock.Object);
         }
@@ -32,10 +28,11 @@ namespace StoreBox.Controllers.Tests
         [TestMethod()]
         public void GetOrder_IsNull_ReturnNotFound()
         {
-            var result = _controller.GetOrder(0) as NotFoundResult; 
+            var result = _controller.GetOrder(0) as NotFoundResult;
             Assert.IsNotNull(result);
             Assert.AreEqual(404, result.StatusCode);
         }
+
         [TestMethod()]
         [DataRow(133)]
         public void GetOrder_IsNotNull_ReturnsTotalSize(float expectedResult)
@@ -53,9 +50,10 @@ namespace StoreBox.Controllers.Tests
             var result = _controller.GetOrder(11) as ObjectResult;
             Assert.AreEqual(((OrderDTO)result.Value).TotalSize, expectedResult);
         }
+
         [TestMethod()]
         public void AddOrder_ExceptionThrown_StatusCode500()
-        {            
+        {
             Order order = new();
 
             _serviceMock.Setup(r => r.SaveOrder(order)).Throws(new Exception());
@@ -75,7 +73,7 @@ namespace StoreBox.Controllers.Tests
             Assert.IsNotNull(result);
             Assert.AreEqual(200, ((ObjectResult)result).StatusCode);
         }
-    }  
+    }
 
-    
+
 }

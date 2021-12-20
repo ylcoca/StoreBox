@@ -16,7 +16,8 @@ namespace StoreBox.Repository
         public IEnumerable<ProductType> GetOrderProductTypes(int Id)
         {
             IEnumerable<ProductType> cartItems = null;
-            var cartIncludingItems = context.Orders.Include(order => order.ProductOrders).ThenInclude(productType => productType.ProductType)
+            var cartIncludingItems = context.Orders.Include(order => order.ProductOrders)
+                .ThenInclude(productType => productType.ProductType)
                 .FirstOrDefault(order => order.OrderId == Id);
 
             if (cartIncludingItems != null)
@@ -36,7 +37,7 @@ namespace StoreBox.Repository
                 var producType = GetProductType(item);
                 var productOrders = new ProductOrder
                 {
-                    ProductType = producType                    
+                    ProductType = producType
                 };
 
                 if (id == 0)
@@ -54,7 +55,6 @@ namespace StoreBox.Repository
             }
 
             return id;
-
         }
 
         private ProductType GetProductType(ProductOrder item)

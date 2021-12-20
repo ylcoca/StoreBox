@@ -26,18 +26,18 @@ namespace StoreBox
             services.AddDbContext<StoreBoxDBContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ConfigContext")));
 
-            services.AddControllers().AddNewtonsoftJson(options=>
+            services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "StoreBox", Version = "v1" });
-            });        
+            });
 
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             //  services.Configure<Configuration>(Configuration.GetSection("Configuration"));
-            
+
             services.AddSingleton(Configuration.GetSection("Configuration").Get<StoreBoxConfiguration>());
 
         }

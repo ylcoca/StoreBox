@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using StoreBox.Models;
+﻿using StoreBox.Models;
 using StoreBox.Repository;
 using System.Collections.Generic;
 
@@ -18,7 +17,7 @@ namespace StoreBox.Service
         {
             OrderDTO dto = null;
 
-            var products  = _repository.GetOrderProductTypes(Id);
+            var products = _repository.GetOrderProductTypes(Id);
 
             if (products != null)
             {
@@ -39,7 +38,6 @@ namespace StoreBox.Service
                     Products = productList
                 };
             }
-            
 
             return dto;
         }
@@ -59,7 +57,7 @@ namespace StoreBox.Service
 
             foreach (var product in products)
             {
-                if(product.Symbol == ".")
+                if (product.Symbol == ".")
                 {
                     cups++;
                     cupsValue = product.Width;
@@ -68,7 +66,6 @@ namespace StoreBox.Service
                 {
                     totalSize += product.Width;
                 }
-                
             }
 
             if (cups > 0 && cupsValue > 0)
@@ -82,7 +79,6 @@ namespace StoreBox.Service
                     totalSize += cups / _configuration.MaxMugs * cupsValue + cupsValue;
                 }
             }
-           
 
             return totalSize;
         }

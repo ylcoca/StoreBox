@@ -27,7 +27,7 @@ namespace StoreBox.Controllers
                 }
                 return Ok(result);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return StatusCode(500);
             }
@@ -43,7 +43,7 @@ namespace StoreBox.Controllers
                 var minWidth = _service.SaveOrder(order);
                 return Ok(minWidth);
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
                 return StatusCode(500);
