@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace StoreBox
 {
-    public class Configuration
+
+    public class StoreBoxConfiguration
     {
         public int MaxMugs { get; set; }
     }

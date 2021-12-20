@@ -27,7 +27,7 @@ namespace StoreBox.Controllers
                 }
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return StatusCode(500);
             }

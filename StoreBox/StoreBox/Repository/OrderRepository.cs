@@ -15,11 +15,14 @@ namespace StoreBox.Repository
 
         public IEnumerable<ProductType> GetOrderProductTypes(int Id)
         {
+            IEnumerable<ProductType> cartItems = null;
             var cartIncludingItems = context.Orders.Include(order => order.ProductOrders).ThenInclude(productType => productType.ProductType)
-                .First(order => order.OrderId == Id);
-            var cartItems = cartIncludingItems.ProductOrders.Select(row => row.ProductType);
+                .FirstOrDefault(order => order.OrderId == Id);
 
-
+            if (cartIncludingItems != null)
+            {
+                cartItems = cartIncludingItems.ProductOrders.Select(row => row.ProductType);
+            }
             return cartItems;
         }
 

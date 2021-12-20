@@ -8,29 +8,38 @@ namespace StoreBox.Service
     public class OrderService : IOrderService
     {
         IOrderRepository _repository;
-        private readonly Configuration _configuration;
-        public OrderService(IOrderRepository repository, Configuration myConfiguration)
+        StoreBoxConfiguration _configuration;
+        public OrderService(IOrderRepository repository, StoreBoxConfiguration myConfiguration)
         {
             _repository = repository;
             _configuration = myConfiguration;
         }
         public OrderDTO GetOrder(int Id)
         {
+            OrderDTO dto = null;
+
             var products  = _repository.GetOrderProductTypes(Id);
-            var productList = new List<ProductTypeDTO>();
 
-            foreach (var product in products)
+            if (products != null)
             {
-                productList.Add(new ProductTypeDTO {
-                    ProductTypeName = product.ProductTypeName,
-                    Width = product.Width
-                });
-            }
+                var productList = new List<ProductTypeDTO>();
 
-            var dto = new OrderDTO {
-                TotalSize = TotalSize(products),
-                Products = productList
-            };
+                foreach (var product in products)
+                {
+                    productList.Add(new ProductTypeDTO
+                    {
+                        ProductTypeName = product.ProductTypeName,
+                        Width = product.Width
+                    });
+                }
+
+                dto = new OrderDTO
+                {
+                    TotalSize = TotalSize(products),
+                    Products = productList
+                };
+            }
+            
 
             return dto;
         }
