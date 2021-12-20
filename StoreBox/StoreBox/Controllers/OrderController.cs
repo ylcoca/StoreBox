@@ -16,7 +16,7 @@ namespace StoreBox.Controllers
         }
         // GET api/<OrderController>/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult GetOrder(int id)
         {
             try
             {

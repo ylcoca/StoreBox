@@ -15,8 +15,8 @@ namespace StoreBox.Repository
 
         public IEnumerable<ProductType> GetOrderProductTypes(int Id)
         {
-            var cartIncludingItems = context.Orders.Include(cart => cart.ProductOrders).ThenInclude(row => row.ProductType)
-                .First(cart => cart.OrderId == Id);
+            var cartIncludingItems = context.Orders.Include(order => order.ProductOrders).ThenInclude(productType => productType.ProductType)
+                .First(order => order.OrderId == Id);
             var cartItems = cartIncludingItems.ProductOrders.Select(row => row.ProductType);
 
 
@@ -29,8 +29,8 @@ namespace StoreBox.Repository
 
             foreach (var item in order.ProductOrders)
             {
-                //var producType = context.ProductTypes.First(i => i.ProductTypeID == item.ProductType.ProductTypeID);
-                var producType = context.ProductTypes.First(i => i.Symbol == item.ProductType.Symbol);
+
+                var producType = GetProductType(item);
                 var productOrders = new ProductOrder
                 {
                     ProductType = producType                    
@@ -52,6 +52,11 @@ namespace StoreBox.Repository
 
             return id;
 
+        }
+
+        private ProductType GetProductType(ProductOrder item)
+        {
+            return context.ProductTypes.First(i => i.Symbol == item.ProductType.Symbol);
         }
     }
 }
