@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StoreBox.Config\StoreBox.Config.csproj" />
+    <ProjectReference Include="..\StoreBox.Entities\StoreBox.Entities.csproj" />
+    <ProjectReference Include="..\StoreBox.Repository\StoreBox.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

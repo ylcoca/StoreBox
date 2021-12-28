@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace StoreBox.Models
+namespace StoreBox.Entities.Models
 {
     public partial class StoreBoxDBContext : DbContext
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using StoreBox.Models;
+using StoreBox.Entities.Models;
 using StoreBox.Service;
 using System;
 using System.Collections.Generic;

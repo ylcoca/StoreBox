@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
-namespace StoreBox.Models
+namespace StoreBox.Entities.Models
 {
     public partial class ProductType
     {
@@ -13,8 +14,11 @@ namespace StoreBox.Models
         }
 
         public int ProductTypeID { get; set; }
+        [Required]
         public string ProductTypeName { get; set; }
+        [Required]
         public float Width { get; set; }
+        [Required]
         public string Symbol { get; set; }
 
         public virtual ICollection<ProductOrder> ProductOrders { get; set; }

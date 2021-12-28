@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StoreBox.Models;
+using StoreBox.Entities.Models;
 using StoreBox.Service;
 using System;
 

@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StoreBox\StoreBox.csproj" />
+    <ProjectReference Include="..\StoreBox.Controller\StoreBox.Controller.csproj" />
   </ItemGroup>
 
 </Project>

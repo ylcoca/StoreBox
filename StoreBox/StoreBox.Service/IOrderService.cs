@@ -1,4 +1,4 @@
-﻿using StoreBox.Models;
+﻿using StoreBox.Entities.Models;
 
 namespace StoreBox.Service
 {

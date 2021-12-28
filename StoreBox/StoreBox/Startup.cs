@@ -5,7 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using StoreBox.Models;
+using StoreBox.Config;
+using StoreBox.Entities.Models;
 using StoreBox.Repository;
 using StoreBox.Service;
 

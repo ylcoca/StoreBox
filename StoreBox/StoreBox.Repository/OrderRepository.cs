@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StoreBox.Models;
+using StoreBox.Entities.Models;
 using System.Collections.Generic;
 using System.Linq;
 

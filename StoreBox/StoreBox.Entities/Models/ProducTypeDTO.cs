@@ -1,4 +1,4 @@
-﻿namespace StoreBox.Models
+﻿namespace StoreBox.Entities.Models
 {
     public class ProductTypeDTO
     {

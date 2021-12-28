@@ -1,4 +1,4 @@
-﻿using StoreBox.Models;
+﻿using StoreBox.Entities.Models;
 using System.Collections.Generic;
 
 namespace StoreBox.Repository

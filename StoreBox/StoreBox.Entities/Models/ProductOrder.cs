@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace StoreBox.Models
+namespace StoreBox.Entities.Models
 {
     public partial class ProductOrder
     {

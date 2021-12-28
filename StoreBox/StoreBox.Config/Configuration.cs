@@ -1,4 +1,4 @@
-﻿namespace StoreBox
+﻿namespace StoreBox.Config
 {
 
     public class StoreBoxConfiguration

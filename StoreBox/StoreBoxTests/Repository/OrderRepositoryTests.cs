@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using StoreBox.Models;
-using System;
+using StoreBox.Entities.Models;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using StoreBox.Models;
+using StoreBox.Config;
+using StoreBox.Entities.Models;
 using StoreBox.Repository;
 using System.Collections.Generic;
 

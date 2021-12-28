@@ -17,4 +17,9 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StoreBox.Entities\StoreBox.Entities.csproj" />
+    <ProjectReference Include="..\StoreBox.Service\StoreBox.Service.csproj" />
+  </ItemGroup>
+
 </Project>
