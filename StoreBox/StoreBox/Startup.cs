@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +11,8 @@ using StoreBox.Config;
 using StoreBox.Entities.Models;
 using StoreBox.Repository;
 using StoreBox.Service;
+using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace StoreBox
 {
@@ -37,7 +41,6 @@ namespace StoreBox
 
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IOrderRepository, OrderRepository>();
-            //  services.Configure<Configuration>(Configuration.GetSection("Configuration"));
 
             services.AddSingleton(Configuration.GetSection("Configuration").Get<StoreBoxConfiguration>());
 
@@ -63,6 +66,33 @@ namespace StoreBox
             {
                 endpoints.MapControllers();
             });
+
+            app.UseExceptionHandler(exceptionHandlerApp =>
+            {
+                exceptionHandlerApp.Run(async context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+
+                    // using static System.Net.Mime.MediaTypeNames;
+                    context.Response.ContentType = Text.Plain;
+
+                    await context.Response.WriteAsync("An exception was thrown.");
+
+                    var exceptionHandlerPathFeature =
+                        context.Features.Get<IExceptionHandlerPathFeature>();
+
+                    /*if (exceptionHandlerPathFeature?.Error is FileNotFoundException)
+                    {
+                        await context.Response.WriteAsync(" The file was not found.");
+                    }*/
+
+                    if (exceptionHandlerPathFeature?.Path == "/")
+                    {
+                        await context.Response.WriteAsync(" Page: Home.");
+                    }
+                });
+            });
+
         }
     }
 }

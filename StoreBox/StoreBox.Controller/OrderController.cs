@@ -2,6 +2,7 @@
 using StoreBox.Entities.Models;
 using StoreBox.Service;
 using System;
+using System.Threading.Tasks;
 
 namespace StoreBox.Controllers
 {
@@ -16,11 +17,21 @@ namespace StoreBox.Controllers
         }
         // GET api/<OrderController>/5
         [HttpGet("{id}")]
-        public IActionResult GetOrder(int id)
+        public async Task<IActionResult> GetOrder(int id)
         {
             try
             {
-                var result = _service.GetOrder(id);
+                if (id == 0)
+                {
+                    return BadRequest("Id its not valid");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+
+                var result = await _service.GetOrder(id);
                 if (result == null)
                 {
                     return NotFound();
@@ -29,24 +40,34 @@ namespace StoreBox.Controllers
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                return StatusCode(500, "Internal server error");
             }
 
         }
 
         // POST api/<OrderController>
         [HttpPost]
-        public IActionResult AddOrder([FromBody] Order order)
+        public async Task<IActionResult> AddOrder([FromBody] Order order)
         {
             try
             {
-                var minWidth = _service.SaveOrder(order);
+                if (order == null)
+                {
+                    return BadRequest("Order object is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+
+                var minWidth = await _service.SaveOrder(order);
                 return Ok(minWidth);
             }
             catch (Exception)
             {
 
-                return StatusCode(500);
+                return StatusCode(500, "Internal server error");
             }
             
         }

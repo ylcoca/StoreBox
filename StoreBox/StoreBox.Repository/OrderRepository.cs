@@ -2,6 +2,7 @@
 using StoreBox.Entities.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace StoreBox.Repository
 {
@@ -13,12 +14,13 @@ namespace StoreBox.Repository
             context = dbcontex;
         }
 
-        public IEnumerable<ProductType> GetOrderProductTypes(int Id)
+        public async Task<IEnumerable<ProductType>> GetOrderProductTypes(int Id)
         {
             IEnumerable<ProductType> cartItems = null;
-            var cartIncludingItems = context.Orders.Include(order => order.ProductOrders)
-                .ThenInclude(productType => productType.ProductType)
-                .FirstOrDefault(order => order.OrderId == Id);
+            var cartIncludingItems = await context.Orders
+             .Include(order => order.ProductOrders)
+            .ThenInclude(productType => productType.ProductType)
+            .FirstOrDefaultAsync(order => order.OrderId == Id);
 
             if (cartIncludingItems != null)
             {
@@ -27,14 +29,14 @@ namespace StoreBox.Repository
             return cartItems;
         }
 
-        public int SaveOrder(Order order)
+        public async Task<int> SaveOrderAsync(Order order)
         {
             int id = 0;
 
             foreach (var item in order.ProductOrders)
             {
 
-                var producType = GetProductType(item);
+                var producType = await GetProductType(item);
                 var productOrders = new ProductOrder
                 {
                     ProductType = producType
@@ -57,9 +59,9 @@ namespace StoreBox.Repository
             return id;
         }
 
-        private ProductType GetProductType(ProductOrder item)
+        private async Task<ProductType> GetProductType(ProductOrder item)
         {
-            return context.ProductTypes.First(i => i.Symbol == item.ProductType.Symbol);
+            return await context.ProductTypes.FirstOrDefaultAsync(i => i.Symbol == item.ProductType.Symbol);
         }
     }
 }

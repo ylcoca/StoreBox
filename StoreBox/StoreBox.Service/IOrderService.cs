@@ -1,10 +1,11 @@
 ﻿using StoreBox.Entities.Models;
+using System.Threading.Tasks;
 
 namespace StoreBox.Service
 {
     public interface IOrderService
     {
-        public float SaveOrder(Order order);
-        public OrderDTO GetOrder(int Id);
+        public Task<float> SaveOrder(Order order);
+        public Task<OrderDTO> GetOrder(int Id);
     }
 }

@@ -2,6 +2,7 @@
 using StoreBox.Entities.Models;
 using StoreBox.Repository;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace StoreBox.Service
 {
@@ -14,11 +15,11 @@ namespace StoreBox.Service
             _repository = repository;
             _configuration = myConfiguration;
         }
-        public OrderDTO GetOrder(int Id)
+        public async Task<OrderDTO> GetOrder(int Id)
         {
             OrderDTO dto = null;
 
-            var products = _repository.GetOrderProductTypes(Id);
+            var products = await _repository.GetOrderProductTypes(Id);
 
             if (products != null)
             {
@@ -43,11 +44,11 @@ namespace StoreBox.Service
             return dto;
         }
 
-        public float SaveOrder(Order order)
+        public async Task<float> SaveOrder(Order order)
         {
-            var Id = _repository.SaveOrder(order);
+            var Id = await _repository.SaveOrderAsync(order);
 
-            return GetOrder(Id).TotalSize;
+            return GetOrder(Id).Result.TotalSize;
         }
 
         private float TotalSize(IEnumerable<ProductType> products)
