@@ -11,7 +11,6 @@
   <ItemGroup>
     <ProjectReference Include="..\StoreBox.Entities\StoreBox.Entities.csproj" />
     <ProjectReference Include="..\StoreBox.Service\StoreBox.Service.csproj" />
-    <ProjectReference Include="..\StoreBox\StoreBox.csproj" />
   </ItemGroup>
 
 </Project>

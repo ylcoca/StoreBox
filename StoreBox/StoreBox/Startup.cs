@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using StoreBox.Config;
+using StoreBox.Controllers;
 using StoreBox.Entities.Models;
 using StoreBox.Repository;
 using StoreBox.Service;
@@ -80,11 +81,6 @@ namespace StoreBox
 
                     var exceptionHandlerPathFeature =
                         context.Features.Get<IExceptionHandlerPathFeature>();
-
-                    /*if (exceptionHandlerPathFeature?.Error is FileNotFoundException)
-                    {
-                        await context.Response.WriteAsync(" The file was not found.");
-                    }*/
 
                     if (exceptionHandlerPathFeature?.Path == "/")
                     {
