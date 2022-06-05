@@ -1,24 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
 namespace StoreBox.Entities.Models
 {
-    public partial class ProductType
+    [Table("product_type")]
+    public class ProductType
     {
+        
         public ProductType()
         {
             ProductOrders = new HashSet<ProductOrder>();
         }
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("product_type_id")]
         public int ProductTypeID { get; set; }
-        [Required]
+        [Required]        
+        [Column("product_type_name")]
         public string ProductTypeName { get; set; }
         [Required]
+        [Column("width")]
         public float Width { get; set; }
         [Required]
+        [Column("symbol")]
         public string Symbol { get; set; }
 
         public virtual ICollection<ProductOrder> ProductOrders { get; set; }

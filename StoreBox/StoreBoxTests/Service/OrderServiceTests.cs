@@ -15,7 +15,6 @@ namespace StoreBox.Service.Tests
         private IOrderService _service;
         Mock<IOrderRepository> _repoMock;
         StoreBoxConfiguration _config;
-        OrderDTO _orderDto;
         List<ProductType> _productList;
 
         [TestInitialize]
@@ -52,7 +51,7 @@ namespace StoreBox.Service.Tests
             var result = _service.GetOrder(It.IsAny<int>());
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(OrderDTO));
+            Assert.IsInstanceOfType(result, typeof(OrderDto));
            // Assert.AreEqual(result.TotalSize, 29);
         }
 

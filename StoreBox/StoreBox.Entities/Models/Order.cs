@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
 namespace StoreBox.Entities.Models
 {
-    public partial class Order
+    [Table("order")]
+    public class Order
     {
         public Order()
         {
             ProductOrders = new HashSet<ProductOrder>();
         }
-        
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("order_id")]
         public int OrderId { get; set; }
 
         public virtual ICollection<ProductOrder> ProductOrders { get; set; }

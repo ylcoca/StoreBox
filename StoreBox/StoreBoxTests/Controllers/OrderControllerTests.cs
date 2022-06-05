@@ -13,8 +13,8 @@ namespace StoreBox.Controllers.Tests
     {
         OrderController _controller;
         Mock<IOrderService> _serviceMock;
-        OrderDTO _orderDto;
-        List<ProductTypeDTO> _productList;
+        OrderDto _orderDto;
+        List<ProductTypeDto> _productList;
 
         [TestInitialize]
         public void Initialize()
@@ -37,9 +37,9 @@ namespace StoreBox.Controllers.Tests
         [DataRow(133)]
         public void GetOrder_IsNotNull_ReturnsTotalSize(float expectedResult)
         {
-            _productList = new List<ProductTypeDTO>();
+            _productList = new List<ProductTypeDto>();
 
-            _orderDto = new OrderDTO
+            _orderDto = new OrderDto
             {
                 TotalSize = 133,
                 Products = _productList

@@ -29,8 +29,10 @@ namespace StoreBox
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<StoreBoxDBContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ConfigContext")));
+             services.AddDbContext<StoreBoxDBContext>(options =>
+                     options.UseSqlServer(Configuration.GetConnectionString("ConfigContext")));
+
+            //services.AddDbContext<StoreBoxDBContext>(opt => opt.UseInMemoryDatabase("StoreBoxDB"));
 
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -73,8 +75,7 @@ namespace StoreBox
                 exceptionHandlerApp.Run(async context =>
                 {
                     context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-
-                    // using static System.Net.Mime.MediaTypeNames;
+                    
                     context.Response.ContentType = Text.Plain;
 
                     await context.Response.WriteAsync("An exception was thrown.");

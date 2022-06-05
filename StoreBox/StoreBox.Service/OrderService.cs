@@ -15,26 +15,26 @@ namespace StoreBox.Service
             _repository = repository;
             _configuration = myConfiguration;
         }
-        public async Task<OrderDTO> GetOrder(int Id)
+        public async Task<OrderDto> GetOrder(int Id)
         {
-            OrderDTO dto = null;
+            OrderDto dto = null;
 
             var products = await _repository.GetOrderProductTypes(Id);
 
             if (products != null)
             {
-                var productList = new List<ProductTypeDTO>();
+                var productList = new List<ProductTypeDto>();
 
                 foreach (var product in products)
                 {
-                    productList.Add(new ProductTypeDTO
+                    productList.Add(new ProductTypeDto
                     {
                         ProductTypeName = product.ProductTypeName,
                         Width = product.Width
                     });
                 }
 
-                dto = new OrderDTO
+                dto = new OrderDto
                 {
                     TotalSize = TotalSize(products),
                     Products = productList

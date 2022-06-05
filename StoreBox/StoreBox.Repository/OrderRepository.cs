@@ -16,17 +16,17 @@ namespace StoreBox.Repository
 
         public async Task<IEnumerable<ProductType>> GetOrderProductTypes(int Id)
         {
-            IEnumerable<ProductType> cartItems = null;
-            var cartIncludingItems = await context.Orders
-             .Include(order => order.ProductOrders)
-            .ThenInclude(productType => productType.ProductType)
-            .FirstOrDefaultAsync(order => order.OrderId == Id);
+                IEnumerable<ProductType> cartItems = null;
+                var cartIncludingItems = await context.Orders
+                 .Include(order => order.ProductOrders)
+                .ThenInclude(productType => productType.ProductType)
+                .FirstOrDefaultAsync(order => order.OrderId == Id);
 
-            if (cartIncludingItems != null)
-            {
-                cartItems = cartIncludingItems.ProductOrders.Select(row => row.ProductType);
-            }
-            return cartItems;
+                if (cartIncludingItems != null)
+                {
+                    cartItems = cartIncludingItems.ProductOrders.Select(row => row.ProductType);
+                }
+                return cartItems;            
         }
 
         public async Task<int> SaveOrderAsync(Order order)
