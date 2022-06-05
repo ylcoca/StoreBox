@@ -10,7 +10,7 @@ namespace StoreBox.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        private IOrderService _service;
+        private readonly IOrderService _service;
         public OrderController(IOrderService service)
         {
             _service = service;
@@ -70,6 +70,20 @@ namespace StoreBox.Controllers
                 return StatusCode(500, "Internal server error");
             }
             
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteOrder([FromBody] int id)
+        {
+            try
+            {
+                return Ok(await _service.DeleteOrder(id));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+
         }
     }
 }

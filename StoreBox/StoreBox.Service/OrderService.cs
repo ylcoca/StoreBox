@@ -8,13 +8,19 @@ namespace StoreBox.Service
 {
     public class OrderService : IOrderService
     {
-        IOrderRepository _repository;
-        StoreBoxConfiguration _configuration;
+        readonly IOrderRepository _repository;
+        readonly StoreBoxConfiguration _configuration;
         public OrderService(IOrderRepository repository, StoreBoxConfiguration myConfiguration)
         {
             _repository = repository;
             _configuration = myConfiguration;
         }
+
+        public async Task<int> DeleteOrder(int Id)
+        {
+           return await _repository.DeleteOrder(Id);
+        }
+
         public async Task<OrderDto> GetOrder(int Id)
         {
             OrderDto dto = null;

@@ -37,14 +37,14 @@ namespace StoreBox.Entities.Models
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.ProductOrders)
                     .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Order_OrderId");
+                    .HasConstraintName("FK_Order_OrderId")
+                    .OnDelete(DeleteBehavior.ClientCascade);
 
                 entity.HasOne(d => d.ProductType)
                     .WithMany(p => p.ProductOrders)
                     .HasForeignKey(d => d.ProductTypeID)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductType_ProductTypeID");
+                    .HasConstraintName("FK_ProductType_ProductTypeID")
+                    .OnDelete(DeleteBehavior.ClientCascade);
             });
 
             modelBuilder.Entity<ProductType>(entity =>
@@ -55,10 +55,6 @@ namespace StoreBox.Entities.Models
                     .HasMaxLength(1)
                     .IsFixedLength(true);
             });
-
-            OnModelCreatingPartial(modelBuilder);
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

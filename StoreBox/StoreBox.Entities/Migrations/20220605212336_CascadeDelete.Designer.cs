@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreBox.Entities.Models;
 
@@ -10,9 +11,10 @@ using StoreBox.Entities.Models;
 namespace StoreBox.Entities.Migrations
 {
     [DbContext(typeof(StoreBoxDBContext))]
-    partial class StoreBoxDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220605212336_CascadeDelete")]
+    partial class CascadeDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

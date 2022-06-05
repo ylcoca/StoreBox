@@ -8,5 +8,6 @@ namespace StoreBox.Repository
     {
         public Task<int> SaveOrderAsync(Order order);
         public Task<IEnumerable<ProductType>> GetOrderProductTypes(int Id);
+        public Task<int> DeleteOrder(int Id);
     }
 }

@@ -8,16 +8,30 @@ namespace StoreBox.Repository
 {
     public class OrderRepository : IOrderRepository
     {
-        private readonly StoreBoxDBContext context;
+        private readonly StoreBoxDBContext _context;
         public OrderRepository(StoreBoxDBContext dbcontex)
         {
-            context = dbcontex;
+            _context = dbcontex;
+        }
+
+        private async Task<Order> LookupOrderById(int Id)
+        {
+            return await _context.Orders.Where(o => o.OrderId == Id).Include(p=>p.ProductOrders).FirstOrDefaultAsync();
+        }
+
+        public async Task<int> DeleteOrder(int Id)
+        {
+          var order = await LookupOrderById(Id);
+          _context.Orders.Remove(order);
+          await _context.SaveChangesAsync();
+
+          return Id;
         }
 
         public async Task<IEnumerable<ProductType>> GetOrderProductTypes(int Id)
         {
                 IEnumerable<ProductType> cartItems = null;
-                var cartIncludingItems = await context.Orders
+                var cartIncludingItems = await _context.Orders
                  .Include(order => order.ProductOrders)
                 .ThenInclude(productType => productType.ProductType)
                 .FirstOrDefaultAsync(order => order.OrderId == Id);
@@ -51,8 +65,8 @@ namespace StoreBox.Repository
                     productOrders.OrderId = id;
                 }
 
-                context.Add(productOrders);
-                context.SaveChanges();
+                _context.Add(productOrders);
+                _context.SaveChanges();
                 id = productOrders.OrderId;
             }
 
@@ -61,7 +75,7 @@ namespace StoreBox.Repository
 
         private async Task<ProductType> GetProductType(ProductOrder item)
         {
-            return await context.ProductTypes.FirstOrDefaultAsync(i => i.Symbol == item.ProductType.Symbol);
+            return await _context.ProductTypes.FirstOrDefaultAsync(i => i.Symbol == item.ProductType.Symbol);
         }
     }
 }

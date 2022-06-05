@@ -7,5 +7,6 @@ namespace StoreBox.Service
     {
         public Task<float> SaveOrder(Order order);
         public Task<OrderDto> GetOrder(int Id);
+        public Task<int> DeleteOrder(int Id);
     }
 }
