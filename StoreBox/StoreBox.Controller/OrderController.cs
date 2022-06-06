@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using StoreBox.Entities.Models;
 using StoreBox.Service;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace StoreBox.Controllers
@@ -11,9 +13,12 @@ namespace StoreBox.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _service;
-        public OrderController(IOrderService service)
+        private const string CacheKey = "Order";
+        private readonly IMemoryCache _cache;
+        public OrderController(IOrderService service, IMemoryCache cache)
         {
             _service = service;
+            _cache = cache;
         }
         // GET api/<OrderController>/5
         [HttpGet("{id}")]
@@ -21,22 +26,29 @@ namespace StoreBox.Controllers
         {
             try
             {
-                if (id == 0)
+                if (_cache.TryGetValue(CacheKey, out IEnumerable<Order> order))
                 {
-                    return BadRequest("Id its not valid");
+                    return Ok(order);
                 }
+                else
+                {
+                    if (id < 1)
+                    {
+                        return BadRequest("Id its not valid");
+                    }
 
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest("Invalid model object");
-                }
+                    if (!ModelState.IsValid)
+                    {
+                        return BadRequest("Invalid model object");
+                    }
 
-                var result = await _service.GetOrder(id);
-                if (result == null)
-                {
-                    return NotFound();
+                    var result = await _service.GetOrder(id);
+                    if (result == null)
+                    {
+                        return NotFound();
+                    }
+                    return Ok(result);
                 }
-                return Ok(result);
             }
             catch (Exception)
             {
@@ -69,17 +81,17 @@ namespace StoreBox.Controllers
 
                 return StatusCode(500, "Internal server error");
             }
-            
+
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteOrder([FromBody] int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteOrder(int id)
         {
             try
             {
                 return Ok(await _service.DeleteOrder(id));
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return StatusCode(500, "Internal server error");
             }

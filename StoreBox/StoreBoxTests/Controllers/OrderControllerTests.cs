@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using StoreBox.Entities.Models;
@@ -13,6 +14,7 @@ namespace StoreBox.Controllers.Tests
     {
         OrderController _controller;
         Mock<IOrderService> _serviceMock;
+        Mock<IMemoryCache> _memoryCacheMock;
         OrderDto _orderDto;
         List<ProductTypeDto> _productList;
 
@@ -21,8 +23,9 @@ namespace StoreBox.Controllers.Tests
         {
             //Arrange
             _serviceMock = new Mock<IOrderService>();
+            _memoryCacheMock = new Mock<IMemoryCache>();
 
-            _controller = new OrderController(_serviceMock.Object);
+            _controller = new OrderController(_serviceMock.Object, _memoryCacheMock.Object);
         }
 
         [TestMethod()]

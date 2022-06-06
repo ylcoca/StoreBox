@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using StoreBox.Config;
 using StoreBox.Controllers;
+using StoreBox.Entities;
 using StoreBox.Entities.Models;
 using StoreBox.Repository;
 using StoreBox.Service;
@@ -29,10 +30,10 @@ namespace StoreBox
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-             services.AddDbContext<StoreBoxDBContext>(options =>
-                     options.UseSqlServer(Configuration.GetConnectionString("ConfigContext")));
+             /*services.AddDbContext<StoreBoxDBContext>(options =>
+                     options.UseSqlServer(Configuration.GetConnectionString("ConfigContext")));*/
 
-            //services.AddDbContext<StoreBoxDBContext>(opt => opt.UseInMemoryDatabase("StoreBoxDB"));
+            services.AddDbContext<StoreBoxDBContext>(opt => opt.UseInMemoryDatabase("StoreBoxDB"));
 
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -46,6 +47,7 @@ namespace StoreBox
             services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddSingleton(Configuration.GetSection("Configuration").Get<StoreBoxConfiguration>());
+            services.AddMemoryCache();
 
         }
 
@@ -89,7 +91,7 @@ namespace StoreBox
                     }
                 });
             });
-
+            PrepDb.PrepPopulation(app);
         }
     }
 }

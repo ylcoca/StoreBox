@@ -1,21 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreBox", "StoreBox\StoreBox.csproj", "{72A67B70-8C93-41E5-9AEA-0AD2DCBA9BB0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreBoxTests", "StoreBoxTests\StoreBoxTests.csproj", "{D66B8D84-E445-4B7A-8943-A280C0E6BB7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreBox.Controller", "StoreBox.Controller\StoreBox.Controller.csproj", "{4906C465-1882-4BA8-8434-0B28A2CD5075}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreBox.Controller", "StoreBox.Controller\StoreBox.Controller.csproj", "{4906C465-1882-4BA8-8434-0B28A2CD5075}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreBox.Service", "StoreBox.Service\StoreBox.Service.csproj", "{D6B47B6A-8C2B-43CF-9449-3EC3198D43AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreBox.Service", "StoreBox.Service\StoreBox.Service.csproj", "{D6B47B6A-8C2B-43CF-9449-3EC3198D43AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreBox.Repository", "StoreBox.Repository\StoreBox.Repository.csproj", "{959F358A-E7E3-4780-8561-872CB935C410}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreBox.Repository", "StoreBox.Repository\StoreBox.Repository.csproj", "{959F358A-E7E3-4780-8561-872CB935C410}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreBox.Entities", "StoreBox.Entities\StoreBox.Entities.csproj", "{D21709C1-5C85-4FA4-8E03-0FE48C46B7EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreBox.Entities", "StoreBox.Entities\StoreBox.Entities.csproj", "{D21709C1-5C85-4FA4-8E03-0FE48C46B7EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreBox.Config", "StoreBox.Config\StoreBox.Config.csproj", "{F4E0162C-01E6-42AF-AAD1-169DC1175E39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreBox.Config", "StoreBox.Config\StoreBox.Config.csproj", "{F4E0162C-01E6-42AF-AAD1-169DC1175E39}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "AngularStoreBox", "AngularStoreBox\AngularStoreBox.esproj", "{09A72610-59B1-4720-BF96-61421A3657AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,12 @@ Global
 		{F4E0162C-01E6-42AF-AAD1-169DC1175E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4E0162C-01E6-42AF-AAD1-169DC1175E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4E0162C-01E6-42AF-AAD1-169DC1175E39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09A72610-59B1-4720-BF96-61421A3657AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09A72610-59B1-4720-BF96-61421A3657AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09A72610-59B1-4720-BF96-61421A3657AD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{09A72610-59B1-4720-BF96-61421A3657AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09A72610-59B1-4720-BF96-61421A3657AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09A72610-59B1-4720-BF96-61421A3657AD}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
