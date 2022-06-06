@@ -113,8 +113,9 @@ namespace StoreBox.Repository.Tests
             mockContext.Verify(m => m.Add(It.IsAny<ProductOrder>()), Times.Once());
             mockContext.Verify(m => m.SaveChanges(), Times.Once());
         }
-        [Ignore]
+        
         [TestMethod()]
+        [Ignore("still testing")]
         public async Task GetOrderProductTypes_WhenCalled_ReturnOrder()
         {
 
