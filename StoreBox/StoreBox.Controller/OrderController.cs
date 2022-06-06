@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using StoreBox.Controller;
 using StoreBox.Entities.Models;
 using StoreBox.Service;
 using System;
@@ -26,7 +27,7 @@ namespace StoreBox.Controllers
         {
             try
             {
-                if (_cache.TryGetValue(CacheKey, out IEnumerable<Order> order))
+                if (_cache.TryGetValue(CacheKey, out IEnumerable<OrderDto> order))
                 {
                     return Ok(order);
                 }
@@ -59,20 +60,11 @@ namespace StoreBox.Controllers
 
         // POST api/<OrderController>
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> AddOrder([FromBody] Order order)
         {
             try
             {
-                if (order == null)
-                {
-                    return BadRequest("Order object is null");
-                }
-
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest("Invalid model object");
-                }
-
                 var minWidth = await _service.SaveOrder(order);
                 return Ok(minWidth);
             }

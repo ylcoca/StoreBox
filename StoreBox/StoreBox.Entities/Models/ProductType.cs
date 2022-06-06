@@ -19,13 +19,13 @@ namespace StoreBox.Entities.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("product_type_id")]
         public int ProductTypeID { get; set; }
-        [Required]        
+        [Required(ErrorMessage = "Name is required")]        
         [Column("product_type_name")]
         public string ProductTypeName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "width is required")]
         [Column("width")]
         public float Width { get; set; }
-        [Required]
+        [Required(ErrorMessage = "symbol is required")]
         [Column("symbol")]
         public string Symbol { get; set; }
 

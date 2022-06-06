@@ -18,7 +18,7 @@ namespace StoreBox.Entities.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("order_id")]
         public int OrderId { get; set; }
-
+        [Required(ErrorMessage = "Product Orders are required")]
         public virtual ICollection<ProductOrder> ProductOrders { get; set; }
     }
 }
