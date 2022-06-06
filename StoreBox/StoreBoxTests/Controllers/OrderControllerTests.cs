@@ -6,6 +6,7 @@ using StoreBox.Entities.Models;
 using StoreBox.Service;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace StoreBox.Controllers.Tests
 {
@@ -29,16 +30,17 @@ namespace StoreBox.Controllers.Tests
         }
 
         [TestMethod()]
-        public void GetOrder_IsNull_ReturnNotFound()
+        public async Task GetOrder_IsNull_ReturnNotFound()
         {
-            /*var result = _controller.GetOrder(0) as NotFoundResult;
+            var result = await _controller.GetOrder(0) as ObjectResult;
             Assert.IsNotNull(result);
-            Assert.AreEqual(404, result.StatusCode);*/
+            Assert.AreEqual(400, result.StatusCode);
+            Assert.AreEqual("Id its not valid", result.Value);
         }
 
         [TestMethod()]
         [DataRow(133)]
-        public void GetOrder_IsNotNull_ReturnsTotalSize(float expectedResult)
+        public async Task GetOrder_IsNotNull_ReturnsTotalSize(float expectedResult)
         {
             _productList = new List<ProductTypeDto>();
 
@@ -48,33 +50,33 @@ namespace StoreBox.Controllers.Tests
                 Products = _productList
             };
 
-           /* _serviceMock.Setup(r => r.GetOrder(11)).Returns(_orderDto);
+            _serviceMock.Setup(r => r.GetOrder(11)).ReturnsAsync(_orderDto);
 
-            var result = _controller.GetOrder(11) as ObjectResult;
-            Assert.AreEqual(((OrderDTO)result.Value).TotalSize, expectedResult);*/
+            var result = await _controller.GetOrder(11) as ObjectResult;
+            Assert.AreEqual(((OrderDto)result.Value).TotalSize, expectedResult);
         }
 
         [TestMethod()]
-        public void AddOrder_ExceptionThrown_StatusCode500()
+        public async Task AddOrder_ExceptionThrown_StatusCode500()
         {
             Order order = new();
 
             _serviceMock.Setup(r => r.SaveOrder(order)).Throws(new Exception());
 
-            /*var result = _controller.AddOrder(order) as StatusCodeResult;
+            var result = await _controller.AddOrder(order);
             Assert.IsNotNull(result);
-            Assert.AreEqual(500, result.StatusCode);*/
+            Assert.AreEqual(500, ((ObjectResult)result).StatusCode);
         }
-
+        
         [TestMethod()]
-        public void AddOrder_WhenCalled_ReturnsOK()
+        public async Task AddOrder_WhenCalled_ReturnsOK()
         {
             Order order = new();
-            /*_serviceMock.Setup(r => r.SaveOrder(order)).Returns(133);
-            var result = _controller.AddOrder(order);
+            _serviceMock.Setup(r => r.SaveOrder(order)).ReturnsAsync(133);
+            var result = await _controller.AddOrder(order);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(200, ((ObjectResult)result).StatusCode);*/
+            Assert.AreEqual(200, ((ObjectResult)result).StatusCode);
         }
     }
 

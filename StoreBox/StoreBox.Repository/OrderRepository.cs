@@ -66,14 +66,14 @@ namespace StoreBox.Repository
                 }
 
                 _context.Add(productOrders);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 id = productOrders.OrderId;
             }
 
             return id;
         }
 
-        private async Task<ProductType> GetProductType(ProductOrder item)
+        public async Task<ProductType> GetProductType(ProductOrder item)
         {
             return await _context.ProductTypes.FirstOrDefaultAsync(i => i.Symbol == item.ProductType.Symbol);
         }

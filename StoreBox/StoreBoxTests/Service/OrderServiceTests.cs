@@ -4,6 +4,7 @@ using StoreBox.Config;
 using StoreBox.Entities.Models;
 using StoreBox.Repository;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace StoreBox.Service.Tests
 {
@@ -42,33 +43,33 @@ namespace StoreBox.Service.Tests
                 }
             };
 
-          //  _repoMock.Setup(r => r.GetOrderProductTypes(It.IsAny<int>())).Returns(_productList);
+            _repoMock.Setup(r => r.GetOrderProductTypes(It.IsAny<int>())).ReturnsAsync(_productList);
         }
 
         [TestMethod()]
-        public void GetOrder_WhenCalled_ReturnsOrderDTO()
+        public async Task GetOrder_WhenCalled_ReturnsOrderDTO()
         {
-            var result = _service.GetOrder(It.IsAny<int>());
+            var result = await _service.GetOrder(It.IsAny<int>());
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OrderDto));
-           // Assert.AreEqual(result.TotalSize, 29);
+            Assert.AreEqual(29, result.TotalSize);
         }
 
         [TestMethod()]
-        public void GetOrder_IdNotFound_ReturnsNull()
+        public async Task GetOrder_IdNotFound_ReturnsNull()
         {
-           // _repoMock.Setup(r => r.GetOrderProductTypes(It.IsAny<int>())).Returns((IEnumerable<ProductType>)null);
+            _repoMock.Setup(r => r.GetOrderProductTypes(It.IsAny<int>())).ReturnsAsync((IEnumerable<ProductType>)null);
 
-            var result = _service.GetOrder(It.IsAny<int>());
+            var result = await _service.GetOrder(It.IsAny<int>());
             Assert.IsNull(result);
         }
 
         [TestMethod()]
-        public void SaveOrder_WhenCalled_ReturnsMinWidth()
+        public async Task SaveOrder_WhenCalled_ReturnsMinWidth()
         {
-            var result = _service.GetOrder(It.IsAny<int>());
-           // Assert.AreEqual(result.TotalSize, 29);
+            var result = await _service.GetOrder(It.IsAny<int>());
+            Assert.AreEqual(29, result.TotalSize);
         }
     }
 }

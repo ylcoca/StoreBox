@@ -31,10 +31,10 @@ namespace StoreBox
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-             services.AddDbContext<StoreBoxDBContext>(options =>
-                     options.UseSqlServer(Configuration.GetConnectionString("ConfigContext")));
+             /*services.AddDbContext<StoreBoxDBContext>(options =>
+                     options.UseSqlServer(Configuration.GetConnectionString("ConfigContext")));*/
 
-            //services.AddDbContext<StoreBoxDBContext>(opt => opt.UseInMemoryDatabase("StoreBoxDB"));
+            services.AddDbContext<StoreBoxDBContext>(opt => opt.UseInMemoryDatabase("StoreBoxDB"));
 
             services.AddScoped<ValidationFilterAttribute>();
             services.AddControllers().AddNewtonsoftJson(options =>
