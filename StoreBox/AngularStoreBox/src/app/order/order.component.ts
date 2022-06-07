@@ -11,9 +11,14 @@ import { OrderService } from '../shared/order.service';
 })
 export class OrderComponent implements OnInit {
 
-  list:any
+  list: Order
 
-  constructor(public service: OrderService) { }
+  constructor(public service: OrderService) {
+    this.list = {
+      totalSize : 0,
+      products : []
+    };
+}
 
   async ngOnInit() {
     this.list = await this.service.listOrderById();

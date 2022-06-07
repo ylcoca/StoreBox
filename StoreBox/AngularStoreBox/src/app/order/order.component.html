@@ -19,15 +19,18 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Product Type Name</th>
+        <th>Name</th>
         <th>Width</th>
       </tr>
     </thead>
     <tbody>
+      <div>
       <tr *ngFor="let product of list.products">
         <td>{{product.productTypeName}}</td>
         <td>{{product.width}}</td>
       </tr>
+</div>
+      
     </tbody>
   </table>
 </div>

@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  storebox:
+    image: ${DOCKER_REGISTRY-}apistorebox
+    build:
+      context: .
+      dockerfile: StoreBox/Dockerfile
+    ports:
+      - "4015:5001"
+  saas-frontend:
+    image: ${DOCKER_REGISTRY-}angularstorebox
+    build:
+        context: .
+        dockerfile: AngularStoreBox/Dockerfile
+    ports:
+        - "4014:80"

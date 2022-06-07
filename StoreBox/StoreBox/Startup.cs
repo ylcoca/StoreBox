@@ -40,10 +40,10 @@ namespace StoreBox
                       });
             });
 
-            services.AddDbContext<StoreBoxDBContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ConfigContext")));
+           /* services.AddDbContext<StoreBoxDBContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ConfigContext")));*/
 
-            //services.AddDbContext<StoreBoxDBContext>(opt => opt.UseInMemoryDatabase("StoreBoxDB"));
+            services.AddDbContext<StoreBoxDBContext>(opt => opt.UseInMemoryDatabase("StoreBoxDB"));
 
             services.AddScoped<ValidationFilterAttribute>();
             services.AddControllers().AddNewtonsoftJson(options =>
