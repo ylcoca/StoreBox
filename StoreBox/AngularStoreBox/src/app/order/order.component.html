@@ -1,0 +1,33 @@
+<div class="jumbotron py-2">
+  <h1 class="display-4 text-center">Member Form</h1>
+</div>
+<div class="row">
+  <!--<app-order-form></app-order-form>-->
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Total Size</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{list.totalSize}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product Type Name</th>
+        <th>Width</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of list.products">
+        <td>{{product.productTypeName}}</td>
+        <td>{{product.width}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

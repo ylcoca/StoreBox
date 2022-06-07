@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using StoreBox.Controller;
 using StoreBox.Entities.Models;
@@ -11,6 +12,7 @@ namespace StoreBox.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("OpenCORSPolicy")]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _service;

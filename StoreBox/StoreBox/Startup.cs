@@ -21,20 +21,29 @@ namespace StoreBox
 {
     public class Startup
     {
+        readonly string CORSOpenPolicy = "OpenCORSPolicy";
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
+        }        
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-             /*services.AddDbContext<StoreBoxDBContext>(options =>
-                     options.UseSqlServer(Configuration.GetConnectionString("ConfigContext")));*/
 
-            services.AddDbContext<StoreBoxDBContext>(opt => opt.UseInMemoryDatabase("StoreBoxDB"));
+            services.AddCors(options => {
+                options.AddPolicy(
+                      name: CORSOpenPolicy,
+                      builder => {
+                          builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                      });
+            });
+
+            services.AddDbContext<StoreBoxDBContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ConfigContext")));
+
+            //services.AddDbContext<StoreBoxDBContext>(opt => opt.UseInMemoryDatabase("StoreBoxDB"));
 
             services.AddScoped<ValidationFilterAttribute>();
             services.AddControllers().AddNewtonsoftJson(options =>
@@ -54,7 +63,6 @@ namespace StoreBox
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -67,7 +75,7 @@ namespace StoreBox
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors(CORSOpenPolicy);
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
